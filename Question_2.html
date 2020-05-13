@@ -1,0 +1,163 @@
+<html>
+<head>
+    <title> Vishal Padma - Exploration & Communication Assignment</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
+	<style>
+       body {
+             font-family: sans-serif;
+           }
+    
+           .vega-actions a {
+             padding: 0.2em;
+           }
+    </style>
+</head>
+<body>
+    <table style="width: 850px" cellspacing="5" cellpadding="5">
+    <tbody>
+    <tr>
+    <td style="width: 200px; vertical-align: top;"><strong>Name:&nbsp;</strong></td>
+    <td style="vertical-align: top;">Vishal Padma</td>
+    </tr>
+    <tr>
+    <td style="vertical-align: top;"><strong>Student Number:</strong></td>
+    <td style="vertical-align: top;">19200174</td>
+    </tr>
+    <tr>
+    <td style="vertical-align: top;"><strong>Dataset description:</strong></td>
+    <td style="vertical-align: top;">
+    <p><a href="https://www.kaggle.com/kemical/kickstarter-projects" target="_blank" rel="noopener">Kickstarter Dataset</a>.</p>
+    <p> Dataset i have choosen is from the kickstrater Platform. Based in Brooklyn, New York, Kickstarted is an American Public Benefit corporation that maintains a global crowdfunding for different platforms and is focused on creativity. The moto followed by the company is "help bring creative projects to life". The stats for kickstrater as of december 2019 are they have received more than $4.6 billion in pledges from 17.2 million backers to fund 445,000 projects, such as films, music, stage shows, comics, journalism, video games, technology, publishing, and food-related projects.</p>
+	<p> So that main dataset has more than 350 thousands of records, so i have filtered the dataset which will contain projects only launched in 2017 and 2018. There are multiple project attributes like, ID, Project Name, Project Category, date & time when it was launched, target date, amount pledged in both USD & local currency and status of the project.</p>
+    </td>
+    </tr>
+    <tr>
+    <td style="vertical-align: top;"><strong>Initial questions</strong></td>
+    <td style="vertical-align: top;">Q2. What was the total goal amount for projects in all the categories in 2017 and 2018? What are the differents states of the project with their counts?</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+  <div id="vis" class="container"></div>
+  <script type="text/javascript">
+    var yourVlSpec =  {
+  "description": " Below specifications will generate two bar charts showing the total goal amount in USD to be raised by all the main categories and count of projects by main categories. State of the project can also been seen in the stacked bar and how they are distributed. Count details can be seen for each category hovering over the bar for each category.",
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/vishalpadma17/Information-Visualization/master/Kickstarter_Dataset_Final.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+   "transform": [
+    {
+      "calculate": "datum.usd_goal_real / 1000000", "as": "USD_Goal_in_Millions"
+    }
+   ],
+   "hconcat":[
+  {
+  "mark": {
+    "type": "bar", "tooltip":true
+  },
+  "encoding": {
+    "x":{
+      "field": "USD_Goal_in_Millions",
+      "type": "quantitative",
+      "aggregate":"sum",
+      "scale": {"domain": [0,1000]},
+      "axis":{"title": "Total USD to be Raised(in Millions)"}
+        },
+    "y": {
+      "field": "main_category",
+      "type": "nominal",
+      "sort":"-x",
+      "axis": {"title": "Main Category"} 
+    },
+    "color":{"field":"state", "type": "nominal"}
+              },
+    "title": {
+    "text": "Total Goal amount(in millions) to be raised for each main Category",
+    "anchor": "middle",
+    "fontSize":16
+           },
+  "width":400,
+  "height":400
+},
+{
+  "mark": {
+    "type": "bar", "tooltip":true
+  },
+  "encoding": {
+    "x": {
+      "field": "*",
+      "type": "quantitative",
+      "aggregate":"count",
+      "scale": {"domain": [0,7000]},
+      "axis": {"title": "Total Count"} 
+    },
+    "y": {
+      "field": "main_category",
+      "type": "nominal",
+      "sort":"-x",
+      "axis": {"title": "Main Category"} 
+    },
+    "color":{"field":"state", "type": "nominal"}
+              },
+    "title": {
+    "text": "Count of each state in each Main Category",
+    "anchor": "middle",
+    "fontSize":16
+           },
+  "width":400,
+  "height":400
+}
+],
+ "config": {
+   "concat":{"spacing": 15},
+ "axis": {"labelFontSize":16,"titleFontSize":16, "titlePadding":12},
+ "legend": {"titleFontSize":14, "labelFontSize":12}
+            }
+}
+        vegaEmbed("#vis", yourVlSpec);
+  </script>
+    <hr />
+<table style="width: 850px;" cellspacing="5" cellpadding="5">
+<tbody>
+<tr>
+<td style="width: 200px; vertical-align: top;"><strong>Description:&nbsp;</strong></td>
+<td style="vertical-align: top;">Above specifications will generate two bar charts showing the total goal amount in USD to be raised by all the main categories and count of projects by main categories. State of the project can also been seen in the stacked bar and how they are distributed. Count details can be seen for each category hovering over the bar for each category.</td>
+</tr>
+<tr>
+<td style="vertical-align: top;"><strong>Insight:</strong></td>
+<td style="vertical-align: top;">
+As observed in the first graph, we can see that Film and Video category has the highest goal amount to be raised which is more than 900 thousand. Also the least goal amount to be raised belong to Dance and Photography. In the graph we can see that photography has some reading and dance doesnt even show any reading that is probably beacuse its total must be in few millions maybe 2 or 3 millions. This shows that many people come up with projects which belong to Film and video category with high funding for each project. And on a contrary, projects of Dance and Photography category needs less funding when compared. One interesting thing to notice is that, more than half of the funding to be raised in Film and Video category has its state as failed. This maybe be due to multiple reasons, but the main reason could be beacuse they couldnt get their goal amount to persue the project. 
+<p>ALmost more than 650 thousands of funding in Film and Video category are undes Failed state and this is maybe beacause the pledged amount to these projects is either low or zero. But as seen in the second graph, many projects were made in Games and Technology. Out of all the projects maximum of them were made in Games, Technology, Design Films & Video and Publishing. Like these are the top 5 categories respectively, with many projects when compareed to others. It is evident enough that people were very much interested in Games and Technology category projects in year 2017 and early time of 2018.During this year there was a lot of development in Games as well as technology which explains the number of projects in these categories. As seen in the stacked graph, there are considerable amount of failed projects more when compared to others states for each category. This might be due to projects not being up to the mark so that it can attract crowd or they couldnt fulfill the needs even after getting the required funding. We can also observe the terminated cases, these projects were either suspended or cancelled.
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top;"><strong>Design considerations</strong></td>
+<td style="vertical-align: top;">1st Graph: For the first graph i have used a simple bar where i compared quantitative attributes to categorical attributes. As simple bar graphs are an effective way to compare quantitative attributes to categorical attributes. Later on sorted the data descending so that the comparison between the graphs can be made easy.
+<p>2nd Graph: Again i have used a stacked bar where effectively we can see the larger category divided into smaller subcategories and how much each sub-section contribute to the total count of the respective category. So the subcategories are of 4 types, so i have divided the bar into 4 different subcategories using the state attribute (Categorical attribute) which indcates the project outcome and these 4 subcategories are Successful, Failed, Live, and Terminated. I could have used a grouped bar chart instead of the stacked one, but as there are many categories it would be really difficult to read the read, congestion issues. Even the stacked bar is at times difficult to read when we have more number of sections in it. As they are not aligned to the comman baseline comparing them becomes a tediuos task. So tooltip is what i used to overcome this issue where when you hover the mouse, details for each section is seen. To combine both the charts i have used hconcat operator.
+
+</td>
+</tr>
+<tr>
+<td style="width: 200px; vertical-align: top;"><strong>Data filtering and transformation:&nbsp;</strong></td>
+<td style="vertical-align: top;"> <p style="font-weight: bold;">Data Preprocessing & Filtering:</p>
+<P>Preprocessing is done using python and processed data is saved into new CSV file.</p>
+<p>1. For preprocessing the data, loaded the data into pandas Dataframe.</p>
+<p>2. The next thing to do was to check if the dataset had any missing values. The most missing values were found in "usd_pledged" column and i have dropped that column.Instead of that i will be using "usd_pledged_real" column for analysis as this column is conversion of "pledged" column into US dollars from the original country.</p>
+<p>3. Converted the launched date format from MM:DD:YYYY HH:MM:SS to MM:DD:YYYY</p>
+<p>4. No duplicate records were found when checked for using the "ID" column which is different of each Project.</p>      
+<p>5. So "state" attribute had suspended and cancalled as one of the values. Converted these values as terminated and replaced at the same place for analysis. So "state" attribute has  Categories in it.</p>
+<p>6. Filtered the dataset and stored all the projects which were launched in 2017 and 2018. Most of the projects are launched in 2017 and few were launched in.</p>
+<p style="font-weight: bold;">Data Transformation:</p>
+<p> 1. For better comparison "usd_goal_real" attributed is transformed into millions.</p>
+ </td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

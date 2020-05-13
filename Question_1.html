@@ -1,0 +1,158 @@
+<html>
+<head>
+    <title> Vishal Padma - Exploration & Communication Assignment</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
+	   <style>
+       body {
+             font-family: sans-serif;
+           }
+    
+           .vega-actions a {
+             padding: 0.2em;
+           }
+    </style>
+</head>
+<body>
+    <table style="width: 850px" cellspacing="5" cellpadding="5">
+    <tbody>
+    <tr>
+    <td style="width: 200px; vertical-align: top;"><strong>Name:&nbsp;</strong></td>
+    <td style="vertical-align: top;">Vishal Padma</td>
+    </tr>
+    <tr>
+    <td style="vertical-align: top;"><strong>Student Number:</strong></td>
+    <td style="vertical-align: top;">19200174</td>
+    </tr>
+    <tr>
+    <td style="vertical-align: top;"><strong>Dataset description:</strong></td>
+    <td style="vertical-align: top;">
+    <p><a href="https://www.kaggle.com/kemical/kickstarter-projects" target="_blank" rel="noopener">Kickstarter Dataset</a>.</p>
+    <p> Dataset choosen is from the kickstrater Platform. Based in Brooklyn, New York, Kickstarted is an American Public Benefit corporation that maintains a global crowdfunding for different platforms and is focused on creativity. The moto followed by the company is "help bring creative projects to life". The stats for kickstrater as of december 2019 are they have received more than $4.6 billion in pledges from 17.2 million backers to fund 445,000 projects, such as films, music, stage shows, comics, journalism, video games, technology, publishing, and food-related projects.</p>
+	<p> So that main dataset has more than 350 thousands of records, so I have filtered the dataset which will contain projects only launched in 2017 and 2018. There are multiple project attributes like, ID, Project Name, Project Category, date & time when it was launched, target date, amount pledged in both USD & local currency and status of the project.</p>
+    </td>
+    </tr>
+    <tr>
+    <td style="vertical-align: top;"><strong>Initial questions</strong></td>
+    <td style="vertical-align: top;">Q1. What type of project categories which had highest amount of funding in year 2017 & 2018? How many projects are there in a single main category?</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+  <div id="vis" class="container"></div>
+  <script type="text/javascript">
+    var yourVlSpec =  {
+  "description": "Below specifications will generate two bar charts showing the total USD raised by all the main categories and count of projects by main categories. Both the bat charts are sorted in descending order showing main category with highest Amount raised and count as first. Count details can be seen for each category hovering over the bar for each category. Categories having amount raised more than 5 millions are selected.",
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/vishalpadma17/Information-Visualization/master/Question_1.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+   "transform": [
+    {
+      "filter": "datum.usd_pledged_real > 5 "
+    }
+   ],
+  "hconcat":[
+  {
+  "mark": {
+    "type": "bar","tooltip":true
+  },
+  "encoding": {
+    "x":{
+      "field": "usd_pledged_real",
+      "type": "quantitative",
+      "aggregate":"sum",
+      "scale": {"domain": [0,180]},
+      "axis":{"title": "Total USD Raised(in Millions)"}
+        },
+    "y": {
+      "field": "main_category",
+      "type": "nominal",
+      "sort":"-x",
+      "axis": {"title": "Main Categories"}
+    }
+              },
+    "title": {
+    "text": "Total Amount (USD) Raised by each Main Category",
+    "anchor": "middle",
+    "fontSize":16
+           },
+  "width":400,
+  "height":400
+  },
+  {
+  "mark": {"type":"bar", "tooltip":true},
+  "encoding": {
+    "x": {
+      "field": "count",
+      "type": "quantitative",
+      "scale": {"domain": [0,8000]},
+      "axis": {"title": "Total Count of Projects"} 
+    },
+    "y":{
+      "field": "main_category",
+      "type": "nominal",
+      "sort":"-x",
+      "axis":{"title": "Main Categories"}
+        }
+  },
+  "title": {
+    "text": "Total Count of Projects Launched in all the Main Categories",
+    "anchor": "middle",
+    "fontSize":16
+           },
+  "width":400,
+  "height":400
+  }
+ ],
+ "config": {
+  "concat":{"spacing": 15}, 
+ "axis": {"labelFontSize":12,"titleFontSize":14, "titlePadding":12},
+ "legend": {"titleFontSize":12, "labelFontSize":12}
+            }
+}
+        vegaEmbed("#vis", yourVlSpec);
+  </script>
+    <hr />
+<table style="width: 850px;" cellspacing="5" cellpadding="5">
+<tbody>
+<tr>
+<td style="width: 200px; vertical-align: top;"><strong>Description:&nbsp;</strong></td>
+<td style="vertical-align: top;">Below specifications will generate two bar charts showing the total USD raised by all the main categories and count of projects by main categories. Both the bat charts are sorted in descending order showing main category with highest Amount raised and count as first. Count details can be seen for each category hovering over the bar for each category. Categories having amount raised more than 5 millions are selected.</td>
+</tr>
+<tr>
+<td style="vertical-align: top;"><strong>Insight:</strong></td>
+<td style="vertical-align: top;">
+As observed in the first graph, top catergory which raised highest number of amount is Design and at the bottom is Photography and each category displayed has total amount more than 5 millions. As shows that most of the donors are interested in donatimg for Design category projects. The next in demand categories are Technology and Games. The total amount raised for Design main category is more than 160 millions. Second in the list is games for which the total amount raised is more than 158 millions for all the projects. As for the second graph, it displayed total count of projects in each category which has total amount raised more than 5 millions. On the top is Games category which has 6910 projects, which is highest amongst all the categories displayed in the graph. The last category is photography which has 1041 projects.
+<p>It is evident that donors are not easily attracted by the photography projects. Also there are very less people who are interetsed to do photography projects when compared with the other categories. Also, interesting fact, Games has more number of projects than Design with less total funding to that category. This suggests that maybe people are more into gaming projects rather than design. We can also say that, design projects need more funding when compared to gaming. 
+<p> Even after having Maximum amount by donors for projects launched in Design category they still were not popular enough for people to start projects in Design Category.</p></td>
+</tr>
+<tr>
+<td style="vertical-align: top;"><strong>Design considerations</strong></td>
+<td style="vertical-align: top;">1st Graph: For the first graph i have used a simple bar where i compared quantitative attributes to categorical attributes. As simple bar graphs are an effective way to compare quantitative attributes to categorical attributes. Later on sorted the data descending so that the comparison between the graphs can be made easy. I have used trasformation to filter all the categories whith a condition where the total amount raised for each category should be more than 5 millions. I have also used tooltip in this graph where we can hover on the bar and see the details regarding to that category.
+<p>2nd Graph: Second garph is almost the same as first one and the only difference is that, in the seconf graph we are dealing with project counts in each caetgory. Here i have plotted two attrivutes, main category against total number of projects for each category respectively. Later on sorted the data in descemding order to see which category is on the top and this makes the comparison easier. I have also used tooltip in this graph where we can hover on the bar and see the details regarding to that category. I tried giving different colors to each category but not using color seems much more easier and simpler while viewing the data for information. The more than 5 million condition is applied here as well.
+
+</td>
+</tr>
+<tr>
+<td style="width: 200px; vertical-align: top;"><strong>Data filtering and transformation:&nbsp;</strong></td>
+<td style="vertical-align: top;"> <p style="font-weight: bold;">Data Preprocessing & Filtering:</p>
+<P>Preprocessing is done using python and processed data is saved into new CSV file.</p>
+<p>1. For preprocessing the data, loaded the data into pandas Dataframe.</p>
+<p>2. The next thing to do was to check if the dataset had any missing values. The most missing values were found in "usd_pledged" column and i have dropped that column.Instead of that i will be using "usd_pledged_real" column for analysis as this column is conversion of "pledged" column into US dollars from the original country.</p>
+<p>3. Converted the launched date format from MM:DD:YYYY HH:MM:SS to MM:DD:YYYY</p>
+<p>4. No duplicate records were found when checked for using the "ID" column which is different of each Project.</p>      
+<p>5. Selected the projects which were launched in 2017 and 2018. Most of the projects are launched in 2017 and few were launched in.</p>
+<p>6. Created a new csv file with category as one column having all the main category, usd_plegdged_real as second column which contains total amount of raised for each category in millions and count as third column which contains total count of projects in each category.</p>
+<p style="font-weight: bold;">Data Transformation:</p>
+<p> 1. Used filter to filter out all categories which have usd_plegdged_real more than 5 millions.</p>
+ </td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

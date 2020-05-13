@@ -1,0 +1,122 @@
+<html>
+<head>
+    <title> Vishal Padma - Exploration & Communication Assignment</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
+	<style>
+       body {
+             font-family: sans-serif;
+           }
+    
+           .vega-actions a {
+             padding: 0.2em;
+           }
+    </style>
+</head>
+<body>
+    <table style="width: 850px" cellspacing="5" cellpadding="5">
+    <tbody>
+    <tr>
+    <td style="width: 200px; vertical-align: top;"><strong>Name:&nbsp;</strong></td>
+    <td style="vertical-align: top;">Vishal Padma</td>
+    </tr>
+    <tr>
+    <td style="vertical-align: top;"><strong>Student Number:</strong></td>
+    <td style="vertical-align: top;">19200174</td>
+    </tr>
+    <tr>
+    <td style="vertical-align: top;"><strong>Dataset description:</strong></td>
+    <td style="vertical-align: top;">
+    <p><a href="https://www.kaggle.com/kemical/kickstarter-projects" target="_blank" rel="noopener">Kickstarter Dataset</a>.</p>
+    <p> Dataset choosen is from the kickstrater Platform. Based in Brooklyn, New York, Kickstarted is an American Public Benefit corporation that maintains a global crowdfunding for different platforms and is focused on creativity. The moto followed by the company is "help bring creative projects to life". The stats for kickstrater as of december 2019 are they have received more than $4.6 billion in pledges from 17.2 million backers to fund 445,000 projects, such as films, music, stage shows, comics, journalism, video games, technology, publishing, and food-related projects.</p>
+	<p> So that main dataset has more than 350 thousands of records, so filtered the dataset which will contain projects only launched in 2017 and 2018. There are multiple project attributes like, ID, Project Name, Project Category, date & time when it was launched, target date, amount pledged in both USD & local currency and status of the project.</p>
+    </td>
+    </tr>
+    <tr>
+    <td style="vertical-align: top;"><strong>Initial questions</strong></td>
+    <td style="vertical-align: top;">Q3. What are the total number of projects in all the main categories per month ? What are the trends seen for the main category ?</td>
+    </tr>
+    </tbody>
+    </table>
+    <hr />
+  <div id="vis" class="container"></div>
+  <script type="text/javascript">
+    var yourVlSpec =  {
+  "description": " Below specification shows a line graph which explains the number of projects recorded every month for all the main categories in the dataset. It also displayed the trend for each  main category displayed in the line graph.",
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/vishalpadma17/Information-Visualization/master/Kickstarter_Dataset_Final.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "mark": {
+    "type": "line", "tooltip":true, "point":true
+  },
+  "encoding": {
+    "x":{
+      "timeUnit": "months",
+      "type": "ordinal",
+      "field": "launched",
+      "axis":{"title": "Date (Year)"}
+        },
+    "y": {
+      "field": "*",
+      "type": "quantitative",
+      "aggregate":"count",
+      "scale": {"domain": [0,750]},
+      "axis": {"title": "Total Count of Projects per month"} 
+    },
+    "color":{"field":"main_category", "type": "nominal"}
+              },
+    "title": {
+    "text": "Trends of different Main Category in one year",
+    "anchor": "middle",
+    "fontSize":16
+           },
+  "width":800,
+  "height":500,
+ "config": {
+ "axis": {"labelFontSize":14,"titleFontSize":14, "titlePadding":12},
+ "legend": {"titleFontSize":12, "labelFontSize":12}
+            }
+}
+        vegaEmbed("#vis", yourVlSpec);
+  </script>
+    <hr />
+<table style="width: 850px;" cellspacing="5" cellpadding="5">
+<tbody>
+<tr>
+<td style="width: 200px; vertical-align: top;"><strong>Description:&nbsp;</strong></td>
+<td style="vertical-align: top;">Above specification shows a line graph which explains the number of projects recorded every month for all the main categories in the dataset. It also displayed the trend for each  main category displayed in the line graph.</td>
+</tr>
+<tr>
+<td style="vertical-align: top;"><strong>Insight:</strong></td>
+<td style="vertical-align: top;">
+Above graph shows the number of projects a particular main category has every month. As seen there are multiple ups and downs in each category. The first pattern i observed is that there is always a drop in number of projects for most of the main categories between months january and february. Few main categories like Food, Film and Video and dance have a upwards line or they had more cases in februray when compared to january. This pattern changes again from februray to march where the number of projects for each categor rises and the difference is significance. This pattern of rise and fall continues till the month of may for most of the maij categories and after that it trends are not consistent enough.
+<p> There is one more observation seen in the graph is that at the end of the year, most of the main category projects have a huge fall, that is when number of projects in november are compared with december there is a huge difference in them. The possible explanation for this can be the christmas break people have. During christmas most of the people enjoy their time off from work and projects and spend time with their family.
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top;"><strong>Design considerations</strong></td>
+<td style="vertical-align: top;">So this question i have used the line graph where we can plot quantitative data over a period of time. So on the x axis i have plotted the months of the project launched. The timeunit used on x axis is month and data type is ordinal on this axis. On the y axis i have used qunatitative datatype to count the total number of projects per month. I have used aggregate operation count on the y axis. I have mentioned the scale in the y axis so that the plot looks well distrubuted. Using scale more will make the comparision hard between two categories and less would have congestion effection on the data and trends wont be seen easily and hence cannot compare the same. 
+<p>I have used color to display all the main categories in different colors so that they can be differentiated. The limitation in line graph is due to overlapping line graphs sometimes we cant see the trends properly. An alternative to this can be bar plot for each main category where we can check when were the highest number of projects in a given year. But by doing this we will be overplotting as there are many categories to be considered.
+</td>
+</tr>
+<tr>
+<td style="width: 200px; vertical-align: top;"><strong>Data filtering and transformation:&nbsp;</strong></td>
+<td style="vertical-align: top;"> <p style="font-weight: bold;">Data Preprocessing & Filtering:</p>
+<P>Preprocessing is done using python and processed data is saved into new CSV file.</p>
+<p>1. For preprocessing the data, loaded the data into pandas Dataframe.</p>
+<p>2. The next thing to do was to check if the dataset had any missing values. The most missing values were found in "usd_pledged" column and i have dropped that column.Instead of that i will be using "usd_pledged_real" column for analysis as this column is conversion of "pledged" column into US dollars from the original country.</p>
+<p>3. Converted the launched date format from MM:DD:YYYY HH:MM:SS to MM:DD:YYYY</p>
+<p>4. No duplicate records were found when checked for using the "ID" column which is different of each Project.</p>      
+<p>5. So "state" attribute had suspended and cancalled as one of the values. Converted these values as terminated and replaced at the same place for analysis. So "state" attribute has  Categories in it.</p>
+<p>6. Filtered the dataset and stored all the projects which were launched in 2017 and 2018. Most of the projects are launched in 2017 and few were launched in.</p>
+ </td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
